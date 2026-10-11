@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "100 Questions",
+    "slug": "hundred-questions",
+    "version": "1.0.0",
+    "orientation": "landscape",
+    "icon": "./assets/images/icon-760x760.png",
+    "plugins": [
+      [
+        "@react-native-tvos/config-tv",
+        {
+          "isTV": true,
+          "androidTVBanner": "./assets/images/icon-400x240.png"
+        }
+      ]
+    ],
+    "android": {
+      "package": "com.party.hundredquestions",
+      "splash": {
+        "image": "./assets/images/icon-1920x720.png",
+        "backgroundColor": "#2B2B2B"
+      }
+    }
+  }
+}

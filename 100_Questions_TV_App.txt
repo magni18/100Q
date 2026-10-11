@@ -1,0 +1,21 @@
+This is an app for personal use, it will be sideloaded to a Google Streamer and used in a party.
+
+Idea:
+
+This is a variation the game 100 quesions. A question is prompted on the screen, the group answers, and a button on the remote is pressed (probably just the right button, and left to go back), and the next question pops up. This continues until the questions are done, or the app is closed.
+
+Framework usages:
+
+Any framework that will make and .apk that will be able to be sideloaded to the streamer. If possible, i would prefer React Native, with Javascript.
+
+Requriements:
+
+The app will need a file, that has all the questions in it. It would be nice if its possible to inject them into the app extarnally, like through a phone or usb stick. Probably best to have the questions in a JSON format. Questions should be randomized before game is started.
+
+Look:
+
+Color selectable background, slight movement in the background, like a subtle grain effect or something like that. The text should be in a color that is easly readable with the background, maybe some algorithm to figure out text color based on background color. Animation of the text should be like youre crolling inbetween them on a phone, so when you press left or right, the text slides to the direction pressed, with a fade out and scale down transition, and for the text coming in, will be fade in and scale up.
+
+Before starting the game, there should be a title screen, with the settings, big "Play" button, and a "100 Questions" title. The color on this screen should be reflected based on the color selected in the settings, but by default, keep it dark gray, and white text.
+
+If there is anything else you need, please ask!
