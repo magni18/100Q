@@ -20,9 +20,6 @@
         "image": "./assets/images/icon-1920x720.png",
         "backgroundColor": "#2B2B2B"
       }
-    },
-    "experiments": {
-      "baseUrl": "/100Q"
     }
   }
 }
