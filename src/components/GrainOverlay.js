@@ -2,8 +2,8 @@ import { useEffect, useRef } from 'react';
 import { Animated, StyleSheet, useWindowDimensions } from 'react-native';
 
 const GRAIN_TILE_SIZE = 256;
-const GRAIN_OPACITY = 0.08;
-const GRAIN_FRAME_MS = 80;
+const GRAIN_OPACITY = 0.025;
+const GRAIN_FRAME_MS = 200;
 const grainTile = require('../../assets/grain.png');
 
 function randomOffset() {

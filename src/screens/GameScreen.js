@@ -1,6 +1,7 @@
 import { useMemo, useRef } from 'react';
-import { Animated, StyleSheet, Text, View } from 'react-native';
+import { Animated, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { QuestionCard } from '../components/QuestionCard';
+import { cardLayoutForWidth } from '../game/cardLayout';
 import { RemoteFocusHolder } from '../components/RemoteFocusHolder';
 import { countQuestionCards, stepBackward, stepForward } from '../game/gameNavigation';
 import { useRemoteKeys } from '../remote/useRemoteKeys';
@@ -44,17 +45,20 @@ export function GameScreen({ theme, cards, onFinished, onExit }) {
 
   const { currentCard, outgoingCard, incomingStyle, outgoingStyle } = transition;
   const isShowingQuestion = currentCard.kind === 'question';
+  const { width } = useWindowDimensions();
+  const cardLayout = cardLayoutForWidth(width);
+  const cardPaddingStyle = { paddingHorizontal: cardLayout.horizontalPadding };
 
   return (
     <View style={styles.screen}>
-      <RemoteFocusHolder />
+      <RemoteFocusHolder onTapLeft={goBackward} onTapRight={goForward} />
       {outgoingCard && (
-        <Animated.View style={[styles.cardLayer, outgoingStyle]}>
-          <QuestionCard card={outgoingCard} theme={theme} />
+        <Animated.View style={[styles.cardLayer, cardPaddingStyle, outgoingStyle]}>
+          <QuestionCard card={outgoingCard} theme={theme} cardLayout={cardLayout} />
         </Animated.View>
       )}
-      <Animated.View style={[styles.cardLayer, incomingStyle]}>
-        <QuestionCard card={currentCard} theme={theme} />
+      <Animated.View style={[styles.cardLayer, cardPaddingStyle, incomingStyle]}>
+        <QuestionCard card={currentCard} theme={theme} cardLayout={cardLayout} />
       </Animated.View>
       {isShowingQuestion && (
         <Text style={[styles.counter, { color: theme.textColor }]}>
@@ -67,6 +71,6 @@ export function GameScreen({ theme, cards, onFinished, onExit }) {
 
 const styles = StyleSheet.create({
   screen: { flex: 1 },
-  cardLayer: { position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 120, paddingVertical: 80 },
+  cardLayer: { position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, alignItems: 'center', justifyContent: 'center', paddingVertical: 80 },
   counter: { position: 'absolute', top: 27, right: 48, fontSize: 24, fontWeight: '600', opacity: 0.7 },
 });
