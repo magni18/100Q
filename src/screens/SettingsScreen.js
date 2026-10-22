@@ -1,4 +1,5 @@
 import { Platform, ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import { BackButton } from '../components/BackButton';
 import { FocusableButton } from '../components/FocusableButton';
 import { Swatch } from '../components/Swatch';
 import { SWATCHES } from '../theme/palette';
@@ -44,10 +45,7 @@ function SettingsColumns({ theme, questionCount, questionSource, uploadServer, o
   );
 }
 
-export function SettingsScreen({ onBack, ...settingsProps }) {
-  useRemoteKeys({ onBack });
-  const { width } = useWindowDimensions();
-  const isNarrow = width < NARROW_SCREEN_WIDTH;
+function SettingsBody({ isNarrow, ...settingsProps }) {
   if (!isNarrow) {
     return <SettingsColumns {...settingsProps} isNarrow={false} />;
   }
@@ -58,9 +56,22 @@ export function SettingsScreen({ onBack, ...settingsProps }) {
   );
 }
 
+export function SettingsScreen({ onBack, ...settingsProps }) {
+  useRemoteKeys({ onBack });
+  const { width } = useWindowDimensions();
+  const isNarrow = width < NARROW_SCREEN_WIDTH;
+  return (
+    <View style={styles.screen}>
+      <SettingsBody {...settingsProps} isNarrow={isNarrow} />
+      <BackButton onPress={onBack} theme={settingsProps.theme} />
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
+  screen: { flex: 1 },
   columns: { flex: 1, flexDirection: 'row', paddingHorizontal: 48, paddingVertical: 27 },
-  stackedColumns: { flexDirection: 'column', paddingHorizontal: 16 },
+  stackedColumns: { flexDirection: 'column', paddingHorizontal: 16, paddingTop: 72 },
   column: { flex: 1, justifyContent: 'center', paddingHorizontal: 16 },
   heading: { fontSize: 28, fontWeight: '800', marginTop: 16, marginBottom: 8 },
   body: { fontSize: 22, marginBottom: 8 },

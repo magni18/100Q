@@ -1,5 +1,6 @@
 import { useMemo, useRef } from 'react';
-import { Animated, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import { Animated, Platform, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import { BackButton } from '../components/BackButton';
 import { QuestionCard } from '../components/QuestionCard';
 import { cardLayoutForWidth } from '../game/cardLayout';
 import { RemoteFocusHolder } from '../components/RemoteFocusHolder';
@@ -9,6 +10,7 @@ import { useCardTransition } from '../transition/useCardTransition';
 
 const DIRECTION_RIGHT = 1;
 const DIRECTION_LEFT = -1;
+const SHOWS_ON_SCREEN_BACK_BUTTON = Platform.OS === 'web';
 
 export function GameScreen({ theme, cards, onFinished, onExit }) {
   const cardIndexRef = useRef(0);
@@ -65,6 +67,7 @@ export function GameScreen({ theme, cards, onFinished, onExit }) {
           {currentCard.questionNumber} / {totalQuestions}
         </Text>
       )}
+      {SHOWS_ON_SCREEN_BACK_BUTTON && <BackButton onPress={onExit} theme={theme} />}
     </View>
   );
 }

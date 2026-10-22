@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Animated, StyleSheet, useWindowDimensions } from 'react-native';
+import { Animated, StyleSheet, View, useWindowDimensions } from 'react-native';
 
 const GRAIN_TILE_SIZE = 256;
 const GRAIN_OPACITY = 0.025;
@@ -24,19 +24,21 @@ export function GrainOverlay() {
   }, [offsetX, offsetY]);
 
   return (
-    <Animated.Image
-      source={grainTile}
-      resizeMode="repeat"
-      pointerEvents="none"
-      style={[
-        styles.grain,
-        { width: width + GRAIN_TILE_SIZE, height: height + GRAIN_TILE_SIZE },
-        { transform: [{ translateX: offsetX }, { translateY: offsetY }] },
-      ]}
-    />
+    <View pointerEvents="none" style={styles.clip}>
+      <Animated.Image
+        source={grainTile}
+        resizeMode="repeat"
+        style={[
+          styles.grain,
+          { width: width + GRAIN_TILE_SIZE, height: height + GRAIN_TILE_SIZE },
+          { transform: [{ translateX: offsetX }, { translateY: offsetY }] },
+        ]}
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  clip: { ...StyleSheet.absoluteFillObject, overflow: 'hidden' },
   grain: { position: 'absolute', top: 0, left: 0, opacity: GRAIN_OPACITY },
 });
